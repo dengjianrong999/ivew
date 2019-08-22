@@ -1,6 +1,6 @@
 <template>
   <div class="heade">
-    <img src="../assets/logo.png" alt srcset style="width:50px;height:50px;">
+    <img src="../assets/logo.png" alt srcset style="width:50px;height:50px;" />
     <!-- <template v-if="listActive == '0'"> -->
     <Menu mode="horizontal" :theme="theme1">
       <Dropdown style="margin-left: 20px;float:right;padding-right:20px;">
@@ -14,17 +14,17 @@
       </Dropdown>
       <div class="title">
         <ul>
-          <li
-            v-for="(item,index) in Lists"
-            ref="lisLi"
-            :class="{activeClass: currentIndex === index}"
-            :key="index"
-            @click="isChirdren(item.children,item,index)"
-            v-if="!item.meta.hideInMenu"
-          >
-            <Icon type="ios-paper"/>
-            {{item.meta.title}}
-          </li>
+          <div v-for="(item,index) in Lists" :key="index">
+            <li
+              ref="lisLi"
+              :class="{activeClass: currentIndex === index}"
+              @click="isChirdren(item.children,item,index)"
+              v-if="!item.meta.hideInMenu"
+            >
+              <Icon type="ios-paper" />
+              {{item.meta.title}}
+            </li>
+          </div>
         </ul>
       </div>
     </Menu>
@@ -38,19 +38,19 @@ export default {
     return {
       theme1: "dark",
       // Lists: this.$router.options.routes,  //本地所有路由
-      Lists: this.$store.getters.menuList,    //权限路由 acess控制
-      currentIndex: 0    //本地路由为1
+      Lists: this.$store.getters.menuList, //权限路由 acess控制
+      currentIndex: 0 //本地路由为1
     };
   },
   created() {
-    console.log(this.$store.getters.menuList,'路由list')
+    console.log(this.$store.getters.menuList, "路由list");
   },
   mounted() {
-    this.$nextTick(function(){
-      console.log("///",this.currentIndex)
-    })
+    this.$nextTick(function() {
+      console.log("///", this.currentIndex);
+    });
     this.currentIndex =
-      JSON.parse(window.sessionStorage.getItem("listActive")) || 0;  //本地路由为1
+      JSON.parse(window.sessionStorage.getItem("listActive")) || 0; //本地路由为1
   },
   methods: {
     ...mapActions(["handleLogOut", "getUserInfo"]),

@@ -6,7 +6,7 @@
           <span slot="prepend">
             <Icon :size="16" type="ios-person"></Icon>
           </span>
-        </Input>
+          </Input>
       </FormItem>
       <FormItem prop="password">
         <Input type="password" v-model="form.password" placeholder="请输入密码">

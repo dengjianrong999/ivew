@@ -1,18 +1,18 @@
 <template>
-  <div>   
-
-    <div>递归菜单</div>
+  <div>
     <div class="list-item" v-for="(item, index) in list" :key="index">
-      <div class="item-name" @click="tagShow(item)" >
+      <div class="item-name" :class="item.show?'activeCol':''" @click="tagShow(item)">
         @
         <span>{{item.label}}+</span>
       </div>
       <!-- <transition name="toTop" class="toTop"> -->
-      <transition name="adc">
-        <div v-if="item.children && item.children.length" class="children-item" v-show="item.show">
-          <list :list="item.children"></list>
-        </div>
-      </transition>
+      <div
+        v-if="item.children && item.children.length"
+        class="children-item"
+        :class="item.show?'open':''"
+      >
+        <list :list="item.children"></list>
+      </div>
       <!-- </transition> -->
     </div>
   </div>
@@ -30,27 +30,38 @@ export default {
   }
 };
 </script>
-<style scoped>
-.list-item {
-  padding-left: 40px;
-  position: relative;
+<style lang="less" scoped>
+div {
+  box-sizing: border-box;
 }
 .children-item {
-  transition: all 0.5s;
+  background-color: #fff;
+  cursor: pointer;
+  max-height: 0px;
+  -webkit-transition: all 0.3s;
+  transition: all 1s;
 }
-.adc-enter-active,
-.adc-leave-active {
-  transition: all 0.5s ease-out;
-}
-.adc-enter,
-.adc-leave-to {
-  height: 0;
+.open {
+  max-height: 600px;
+  -webkit-transition: max-height 0.5s;
+  transition: max-height 0.5s;
 }
 .list-item {
-  width: 300px;
+  cursor: pointer;
+  padding-left: 40px;
+  text-align: left;
+  position: relative;
   z-index: 2;
   overflow: hidden;
-  border: 1px solid #ededed;
+  border-top: 1px solid #fff;
+}
+.item-name {
+  padding: 8px 30px;
+  background-color: #FFF;
+  color: #333;
+}
+.activeCol {
+  background-color: rgb(173, 180, 81);
 }
 </style>
 

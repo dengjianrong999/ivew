@@ -6,7 +6,8 @@ export default {
     // tagrouter: []
   },
   getters: {
-    menuList: (state, getters, rootState) => getMenuByRouter(routers, rootState.b.user.access),
+    menuList: (state, getters, rootState) =>
+      getMenuByRouter(routers, rootState.b.user.access)
   },
   mutations: {
     // addRouter(state, tagrouter) {

@@ -8,7 +8,8 @@
           type="dot"
           closable
           color="blue"
-          v-for="item in  routerList"
+          v-for="(item,index) in  routerList"
+          :key="index"
           @click.native="linTo(item)"
           @on-close="close(item)"
         >{{item.title}}</Tag>
@@ -126,6 +127,7 @@ export default {
 
 /*定义滚动条轨道 内阴影+圆角*/
 ::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 1px transparent;
   -webkit-box-shadow: inset 0 0 1px transparent;
   border-radius: 1px;
   background-color: transparent;
@@ -134,6 +136,7 @@ export default {
 /*定义滑块 内阴影+圆角*/
 ::-webkit-scrollbar-thumb {
   border-radius: 1px;
+  box-shadow: inset 0 0 1px transparent;
   -webkit-box-shadow: inset 0 0 1px transparent;
   background-color: transparent;
 }

@@ -33,12 +33,12 @@ export default {
         {
           id: 2,
           label: "1级目录2",
-          show: true
+          show: false
         },
         {
           id: 3,
           label: "1级目录3",
-          show: true,
+          show: false,
           children: [
             {
               id: "3-1",
@@ -47,7 +47,7 @@ export default {
             {
               id: "3-2",
               label: "3.2目录",
-              show: true,
+              show: false,
               children: [
                 {
                   id: "3-2-1",
@@ -68,7 +68,7 @@ export default {
         {
           id: 4,
           label: "1级目录4",
-          show: true,
+          show: false,
           children: [
             {
               id: "4-1",
@@ -77,7 +77,7 @@ export default {
             {
               id: "4-2",
               label: "4.2目录",
-              show: true,
+              show: false,
               children: [
                 {
                   id: "4-2-1",
@@ -90,12 +90,12 @@ export default {
         {
           id: 5,
           label: "1级目录5",
-          show: true,
+          show: false,
           children: [
             {
               id: "5-1",
               label: "5.1目录",
-              show: true,
+              show: false,
               children: [
                 {
                   id: "5-1-1",
@@ -104,7 +104,7 @@ export default {
                 {
                   id: "5-1-2",
                   label: "5.1.2目录",
-                  show: true,
+                  show: false,
                   children: [
                     {
                       id: "5-1-2-1",
@@ -117,17 +117,17 @@ export default {
             {
               id: "5-2",
               label: "5.2目录",
-              show: true
+              show: false
             },
               {
               id: "5-3",
               label: "5.3目录",
-              show: true
+              show: false
             },
               {
               id: "5-4",
               label: "5.4目录",
-              show: true
+              show: false
             }
           ]
         }
@@ -136,3 +136,9 @@ export default {
   }
 };
 </script>
+<style>
+  .list-detail{
+    overflow:scroll;
+  }
+
+</style>
