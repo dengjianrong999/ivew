@@ -1,6 +1,13 @@
 import Mock from "mockjs";
 import { login, logout, getUserInfo } from "./login";
-import { getMessageInit, getContentByMsgId,  hasRead, removeReaded, restoreTrash, messageCount } from "./user";
+import {
+  getMessageInit,
+  getContentByMsgId,
+  hasRead,
+  removeReaded,
+  restoreTrash,
+  messageCount
+} from "./user";
 
 // 配置Ajax请求延时，可用来测试网络延迟大时项目中一些效果
 Mock.setup({

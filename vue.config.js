@@ -21,6 +21,7 @@ module.exports = {
     extract: false, // 是否使用css分离插件
     sourceMap: false // 开启 CSS source maps 一般不建议开启
   },
+
   devServer: {
     // overlay: {
     //   warnings: false,
@@ -32,8 +33,7 @@ module.exports = {
     proxy: {
       "/api": {
         // target: "http://120.77.200.83",
-        target:
-          "https://www.easy-mock.com/mock/5c416d4e0bb19c6a02e017b0/example/",
+        target: "https://easy-mock.com/mock/5c416d4e0bb19c6a02e017b0/example",
         // target:"https://api.douban.com/v2/movie",  //测试跨域
         ws: true,
         changeOrigin: true,

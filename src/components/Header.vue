@@ -1,6 +1,5 @@
 <template>
   <div class="heade">
-    <img src="../assets/logo.png" alt srcset style="width:50px;height:50px;" />
     <!-- <template v-if="listActive == '0'"> -->
     <Menu mode="horizontal" :theme="theme1">
       <Dropdown style="margin-left: 20px;float:right;padding-right:20px;">
@@ -18,7 +17,7 @@
             <li
               ref="lisLi"
               :class="{activeClass: currentIndex === index}"
-              @click="isChirdren(item.children,item,index)"
+              @click="isChirdren(item,index)"
               v-if="!item.meta.hideInMenu"
             >
               <Icon type="ios-paper" />
@@ -54,9 +53,9 @@ export default {
   },
   methods: {
     ...mapActions(["handleLogOut", "getUserInfo"]),
-    isChirdren(lists, iteid, index) {
+    isChirdren(lists, index) {
       this.currentIndex = index;
-      this.$router.push(iteid.path);
+      this.$router.push(lists.path);
       let item = lists;
       // let itemid = iteid;
       // //一级菜单选中高亮
@@ -64,11 +63,11 @@ export default {
       window.sessionStorage.removeItem("listActive");
       window.sessionStorage.setItem("listActive", listActive);
       //一级菜单选中高亮
-      //传菜单栏 二级给侧边栏
+      //传菜单栏给侧边栏
       var routelist = JSON.stringify(item);
       window.sessionStorage.removeItem("data");
       window.sessionStorage.setItem("data", routelist);
-      this.$emit("childValue", item[0]);
+      this.$emit("childValue", (item));
     },
     loginout() {
       this.handleLogOut().then(res => {

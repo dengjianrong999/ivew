@@ -4,7 +4,7 @@ import config from "@/config";
 export const TOKEN_KEY = "token";
 import { hasOneOf, forEach } from "@/libs/tool";
 
-export const setToken = ( token ) => {
+export const setToken = token => {
   Cookies.set(TOKEN_KEY, token, { expires: config.cookieExpires || 1 });
 };
 
@@ -14,7 +14,7 @@ export const getToken = () => {
   else return false;
 };
 
-export const hasChild = (item) => {
+export const hasChild = item => {
   return item.children && item.children.length !== 0;
 };
 
@@ -38,7 +38,10 @@ export const getMenuByRouter = (list, access) => {
         meta: item.meta,
         path: item.path
       };
-      if ((hasChild(item) || (item.meta && item.meta.showAlways)) && showThisMenuEle(item, access)) {
+      if (
+        (hasChild(item) || (item.meta && item.meta.showAlways)) &&
+        showThisMenuEle(item, access)
+      ) {
         obj.children = getMenuByRouter(item.children, access);
       }
       if (item.meta && item.meta.href) obj.href = item.meta.href;
@@ -66,7 +69,7 @@ const hasAccess = (access, route) => {
  * @description 用户是否可跳转到该页
  */
 export const canTurnTo = (name, access, routes) => {
-  const routePermissionJudge = (list) => {
+  const routePermissionJudge = list => {
     return list.some(item => {
       if (item.children && item.children.length) {
         return routePermissionJudge(item.children);
@@ -104,25 +107,28 @@ export const doCustomTimes = (times, callback) => {
   }
 };
 
-export const showTitle = (item, vm) => {
-  let { title, __titleIsFunction__ } = item.meta
-  if (!title) return;
-  if (useI18n) {
-    if (title.includes("{{") && title.includes("}}") && useI18n) title = title.replace(/({{[\s\S]+?}})/, (m, str) => str.replace(/{{([\s\S]*)}}/, (m, _) => vm.$t(_.trim())))
-    else if (__titleIsFunction__) title = item.meta.title;
-    else title = vm.$t(item.name);
-  } else title = (item.meta && item.meta.title) || item.name;
-  return title;
-};
+// export const showTitle = (item, vm) => {
+//   let { title, __titleIsFunction__ } = item.meta
+//   if (!title) return;
+//   if (useI18n) {
+//     if (title.includes("{{") && title.includes("}}") && useI18n) title = title.replace(/({{[\s\S]+?}})/, (m, str) => str.replace(/{{([\s\S]*)}}/, (m, _) => vm.$t(_.trim())))
+//     else if (__titleIsFunction__) title = item.meta.title;
+//     else title = vm.$t(item.name);
+//   } else title = (item.meta && item.meta.title) || item.name;
+//   return title;
+// };
 
 export const findNodeUpperByClasses = (ele, classes) => {
   let parentNode = ele.parentNode;
   if (parentNode) {
     let classList = parentNode.classList;
-    if (classList && classes.every(className => classList.contains(className))) {
+    if (
+      classList &&
+      classes.every(className => classList.contains(className))
+    ) {
       return parentNode;
     } else {
-      return findNodeUpperByClasses(parentNode, classes)
+      return findNodeUpperByClasses(parentNode, classes);
     }
   }
 };

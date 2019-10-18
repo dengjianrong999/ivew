@@ -43,7 +43,7 @@ export const resizetab = () => {
     "px";
   atb[0].style.height = tableBody.style.height;
   atb[1].style.height = tableBody.style.height;
-  return (tableBox.style.height).slice(0, -2);
+  return tableBox.style.height.slice(0, -2);
 };
 
 export const resizeWidown = () => {

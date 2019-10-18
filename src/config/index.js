@@ -20,6 +20,6 @@ export default {
     dev: "/api",
     // dev: "/api",  //跨域配置
     alp: "线上测试环境测试",
-    pro: "https://www.easy-mock.com/mock/5c416d4e0bb19c6a02e017b0/example"
+    pro: "https://easy-mock.com/mock/5c416d4e0bb19c6a02e017b0/example/"
   }
 };

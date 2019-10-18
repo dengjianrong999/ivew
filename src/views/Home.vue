@@ -2,8 +2,11 @@
   <div class="layout">
     <Header @childValue="fnValue"></Header>
     <div class="content" :style="{display: 'flex',height:'100%'}">
-      <div class="side" v-show="this.ChildrenValue.length>1" :class="[leftshow ? '': 'activelist']">
+      <!-- <div class="side" v-show="this.ChildrenValue.length>0" :class="[leftshow ? '': 'activelist']"> -->
+      <!--不显示首页侧边栏-->
+      <div class="side" :class="[leftshow ? '': 'activelist']">
         <Sider hide-trigger :style="{background: '#fff'}">
+          <!-- 展开的侧边栏 -->
           <Menu
             theme="light"
             width="auto"
@@ -16,37 +19,38 @@
             v-show="leftshow"
           >
             <Sidebar
-              v-for="(routeChildren,index) in ChildrenValue"
-              :key="index"
+              v-for="(routeChildren,index) in this.ChildrenValue"
+              :inx="index"
               :item="routeChildren"
             ></Sidebar>
           </Menu>
+          <!-- 收起的侧边栏 -->
           <template v-for="(routeChildren,index) in ChildrenValue">
             <collapsed-menu
-              v-if="routeChildren.children && routeChildren.children.length > 1"
+              v-if="routeChildren.children && routeChildren.children.length > 0"
               :key="index"
               :item="routeChildren"
-               v-show="!leftshow"
+              v-show="!leftshow"
             ></collapsed-menu>
             <Tooltip
               v-show="!leftshow"
               v-else
               :key="index"
               placement="right"
-              :content='routeChildren.meta.title'
+              :content="routeChildren.meta.title"
               @click.native="routerTo(routeChildren)"
             >
-               <Icon :type="routeChildren.meta.icon"></Icon>
+              <Icon :type="routeChildren.meta.icon"></Icon>
             </Tooltip>
           </template>
         </Sider>
-        <div class="turn-but" @click="tagshow()">点击</div>
+        <div class="turn-but" @click="tagshow()">
+          <img src="../assets/logo.png" alt srcset style="height:50px;" />
+        </div>
       </div>
-      
       <div class="Maincontent">
         <Tagsnav></Tagsnav>
         <!-- <Breadcrumb></Breadcrumb> -->
-        
         <template>
           <transition name="fade" mode="out-in">
             <router-view></router-view>
@@ -67,6 +71,7 @@ export default {
   data() {
     return {
       Lists: [],
+      parentList: [],
       ChildrenValue: [],
       itempath: "",
       openmane: [],
@@ -83,9 +88,14 @@ export default {
   },
   created() {},
   mounted() {
-   
-    this.ChildrenValue =
-      JSON.parse(window.sessionStorage.getItem("data")) || []; //传来的二级以下的数据
+
+    this.parentList =
+      JSON.parse(window.sessionStorage.getItem("data")) ||
+      this.$router.options.routes[1].children;
+    this.ChildrenValue =  this.parentList;
+        console.log(this.ChildrenValue,'dsdsdsd')
+      // JSON.parse(window.sessionStorage.getItem("data")).children ||
+      // this.$router.options.routes[1].children; //传来的二级菜单以下的数据
     this.openmane =
       JSON.parse(window.sessionStorage.getItem("opennames")) || [];
     this.$nextTick(() => {
@@ -95,21 +105,27 @@ export default {
   },
   methods: {
     fnValue(childValue) {
-      this.ChildrenValue = JSON.parse(window.sessionStorage.getItem("data"));
-      console.log("erjicaidan", childValue);
+      this.parentList =
+        JSON.parse(window.sessionStorage.getItem("data")) ||
+        this.$router.options.routes[1].children;
+      this.ChildrenValue = JSON.parse(
+        window.sessionStorage.getItem("data")
+      ).children;
+      let muneLIst = childValue.children[0];
       //头部一级菜单点击默认打开第一个侧边栏
-      // **注目前侧边栏只有三级  要四级的话就 childValue.children[0].children[0].children[0].children.length
+      // **注目前侧边栏只有三级  要四级的话就 muneLIst.children[0].children[0].children[0].children.length
       let arrty = [];
-      if (childValue.children == undefined) {
-        return;
-      } else if (childValue.children[0].children == undefined) {
-        var pat1 = childValue.children[0].path;//子菜单
-        var pat2 = childValue.path;//父级
+      if (muneLIst.children == undefined) {
+        var pat0 = muneLIst.path; //子菜单
+        arrty.push(pat0);
+      } else if (muneLIst.children[0].children == undefined) {
+        var pat1 = muneLIst.children[0].path; //子菜单
+        var pat2 = muneLIst.path; //父级
         arrty.push(pat1);
         arrty.push(pat2);
-      } else if (childValue.children[0].children[0].children == undefined) {
-        var pat3 = childValue.children[0].path;
-        var pat4 = childValue.path;
+      } else if (muneLIst.children[0].children[0].children == undefined) {
+        var pat3 = muneLIst.children[0].path;
+        var pat4 = muneLIst.path;
         arrty.push(pat3);
         arrty.push(pat4);
       }
@@ -148,7 +164,7 @@ export default {
     tagshow() {
       this.leftshow = !this.leftshow;
     },
-    routerTo(routeChildren){
+    routerTo(routeChildren) {
       this.$router.push(routeChildren.path);
     }
   }
@@ -210,12 +226,14 @@ export default {
     border-right: 1px solid #ebebeb;
     .turn-but {
       width: 100%;
-      height: 30px;
-      line-height: 30px;
+      height: 60px;
+      line-height: 60px;
       position: absolute;
-      bottom: 60px;
+      top: -60px;
+      z-index: 999;
       cursor: pointer;
-      background-color: aqua;
+      overflow: hidden;
+      background-color: #57a3f3;
     }
   }
   .Maincontent {
@@ -256,16 +274,17 @@ export default {
 .ivu-select-dropdown {
   margin-left: 50px;
 }
-.ivu-tooltip, .ivu-dropdown{
+.ivu-tooltip,
+.ivu-dropdown {
   display: block;
   font-size: 20px;
   cursor: pointer;
 }
-.ivu-icon{
+.ivu-icon {
   color: #666;
 }
-.ivu-tooltip:hover .ivu-icon, .ivu-dropdown:hover .ivu-icon{
+.ivu-tooltip:hover .ivu-icon,
+.ivu-dropdown:hover .ivu-icon {
   color: rgb(74, 179, 221);
 }
-
 </style>

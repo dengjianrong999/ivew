@@ -22,6 +22,12 @@ export default [
         name: "about",
         meta: { title: "折叠面板", icon: "md-home" },
         component: () => import("@/views/page/table.vue")
+      },
+      {
+        path: "/editor",
+        name: "editor",
+        meta: { title: "editor", icon: "md-home" },
+        component: () => import("@/views/page/editor.vue")
       }
     ]
   },
@@ -34,7 +40,7 @@ export default [
     children: [
       {
         path: "/empty1",
-        name: "about",
+        name: "about1",
         meta: {
           title: "折叠面板111",
           icon: "md-home"
@@ -43,8 +49,12 @@ export default [
         children: [
           {
             path: "/empty",
-            name: "table",
-            meta: { title: "表格222", icon: "md-home", access: ["super_admin"]},
+            name: "table1",
+            meta: {
+              title: "表格222",
+              icon: "md-home",
+              access: ["super_admin"]
+            },
             component: () => import("@/views/page/empty.vue"),
             children: [
               {
@@ -57,7 +67,7 @@ export default [
           },
           {
             path: "/about/empty/tag",
-            name: "tag",
+            name: "tag1",
             meta: { title: "tag", icon: "md-home" },
             component: () => import("@/views/page/tag.vue")
           }
@@ -65,19 +75,19 @@ export default [
       },
       {
         path: "/table",
-        name: "table",
+        name: "table2",
         meta: { title: "表格", icon: "md-home" },
         component: () => import("@/views/page/empty.vue"),
         children: [
           {
             path: "/about/empty/table2",
-            name: "table",
+            name: "table3",
             meta: { title: "表格" },
             component: () => import("@/views/page/table.vue")
           },
           {
             path: "/about/empty/tag",
-            name: "tag",
+            name: "tag2",
             meta: { title: "tag", icon: "md-home" },
             component: () => import("@/views/page/form.vue")
           }
@@ -85,13 +95,13 @@ export default [
       },
       {
         path: "/tag",
-        name: "tag",
+        name: "tag3",
         meta: { title: "tab切换", icon: "md-home" },
         component: () => import("@/views/page/tag.vue")
       },
       {
         path: "/form",
-        name: "form",
+        name: "form4",
         meta: { title: "表单", icon: "md-home" },
         component: () => import("@/views/page/form.vue")
       }
@@ -99,32 +109,32 @@ export default [
   },
   {
     path: "/map",
-    name: "home",
+    name: "home2",
     redirect: "/map",
     meta: { title: "一级菜单", icon: "md-home" },
     component: Home,
     children: [
       {
         path: "/a",
-        name: "about",
+        name: "about5",
         meta: { title: "折叠面板", icon: "md-home" },
         component: () => import("@/views/page/empty.vue"),
         children: [
           {
             path: "/map",
-            name: "about",
+            name: "about6",
             meta: { title: "map", icon: "md-home" },
             component: () => import("@/views/page/map.vue")
           },
           {
             path: "/up",
-            name: "table",
+            name: "table5",
             meta: { title: "表格上传", icon: "md-home" },
             component: () => import("@/views/page/excel/upload-excel.vue")
           },
           {
             path: "/down",
-            name: "table",
+            name: "table6",
             meta: { title: "表格下载", icon: "md-home" },
             component: () => import("@/views/page/excel/export-excel.vue")
           }

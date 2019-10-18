@@ -41,11 +41,11 @@ const moduleB = {
     // avatar: state => state.user.avatar,
     // roles: state => state.user.roles
   }
-}
+};
 const store = new Vuex.Store({
   modules: {
     a: moduleA,
     b: moduleB
   }
-})
+});
 export default store;
